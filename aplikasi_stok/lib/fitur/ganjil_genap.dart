@@ -9,125 +9,69 @@ class MenuGanjilGenap {
 
   MenuGanjilGenap(this._database);
 
-  /// Menjalankan menu ganjil/genap
+  /// Menjalankan menu analisis sifat ganjil/genap stok barang gudang
   void jalankan() {
-    bool kembali = false;
+    bool lanjut = true;
 
-    while (!kembali) {
+    while (lanjut) {
       print("\n${"=" * 60}");
-      print(" MENU INPUT BILANGAN: GANJIL / GENAP");
+      print(" MENU ANALISIS BILANGAN GANJIL / GENAP (STOK GUDANG)");
+      print(" Kasus Logistik: Analisis Simetri Display & Bundling Barang");
       print("=" * 60);
-      print("1. Cek Sifat Stok Barang di Gudang (Analisis Logistik)");
-      print("2. Input Bilangan Bebas (Pemeriksaan Ganjil/Genap)");
-      print("0. Kembali ke Menu Utama");
-      print("=" * 60);
-      stdout.write("Pilih opsi [0-2]: ");
-      String? opsi = stdin.readLineSync()?.trim();
 
-      switch (opsi) {
-        case '1':
-          _cekStokBarangGudang();
-          break;
-        case '2':
-          _cekBilanganBebas();
-          break;
-        case '0':
-        case 'k':
-        case 'kembali':
-          kembali = true;
-          print("\n[i] Kembali ke Menu Utama.");
-          break;
-        default:
-          print("\n[!] Opsi tidak valid! Silakan pilih 0, 1, atau 2.");
+      final listBarang = _database.semuaBarang;
+
+      print("\n--- PILIH BARANG GUDANG UNTUK DIANALISIS ---");
+      for (var b in listBarang) {
+        print("[${b.id}] ${b.nama.padRight(28)} | Stok Saat Ini: ${b.stok.toInt()} ${b.satuan}");
+      }
+      print("-" * 50);
+
+      stdout.write("Pilih ID Barang [1-${listBarang.length}] (ketik 0 untuk kembali ke Menu Utama): ");
+      String? inputId = stdin.readLineSync()?.trim();
+
+      if (inputId == '0' ||
+          inputId?.toLowerCase() == 'k' ||
+          inputId?.toLowerCase() == 'batal' ||
+          inputId?.toLowerCase() == 'kembali') {
+        print("\n[i] Kembali ke Menu Utama.");
+        break;
+      }
+
+      int? id = int.tryParse(inputId ?? "");
+      final barang = id != null ? _database.cariBerdasarkanId(id) : null;
+      if (barang == null) {
+        print("[!] Barang tidak ditemukan! Silakan masukkan ID yang sesuai.");
+        continue;
+      }
+
+      int stokBulat = barang.stok.toInt();
+      bool adalahGenap = stokBulat % 2 == 0;
+
+      print("\n[✓] HASIL ANALISIS GANJIL/GENAP BARANG GUDANG:");
+      print("Nama Barang   : ${barang.nama}");
+      print("Jumlah Stok   : $stokBulat ${barang.satuan}");
+      print("Sifat Angka   : ${adalahGenap ? 'GENAP' : 'GANJIL'}");
+      print("Logika Rumus  : $stokBulat % 2 = ${stokBulat % 2}");
+      print("------------------------------------------------------------");
+      print("ANALISIS OPERASIONAL GUDANG:");
+      if (adalahGenap) {
+        print("• Stok barang berjumlah GENAP ($stokBulat).");
+        print("• Barang ini siap ditata secara simetris berpasangan di rak display.");
+        print("• Dapat langsung dibuat bundling 2-in-1 tanpa menyisakan item tercecer.");
+      } else {
+        print("• Stok barang berjumlah GANJIL ($stokBulat).");
+        print("• Jika dikemas dalam paket bundle berpasangan, akan ada 1 ${barang.satuan} sisa.");
+        print("• Rekomendasi: Disarankan menambah restock 1 ${barang.satuan} agar genap (${stokBulat + 1}),");
+        print("  atau jual 1 ${barang.satuan} sebagai barang sample/display terpisah.");
+      }
+
+      stdout.write("\nApakah ingin menganalisis barang lain? [y/n]: ");
+      final lanjutJawab = stdin.readLineSync()?.trim().toLowerCase();
+      if (lanjutJawab != 'y') {
+        lanjut = false;
+        print("\n[i] Kembali ke Menu Utama.");
       }
     }
-  }
-
-  /// Fitur Relevan: Menghubungkan pemeriksaan ganjil/genap dengan stok barang riil
-  void _cekStokBarangGudang() {
-    final listBarang = _database.semuaBarang;
-
-    print("\n--- PILIH BARANG GUDANG UNTUK DIANALISIS ---");
-    for (var b in listBarang) {
-      print("[${b.id}] ${b.nama.padRight(28)} | Stok Saat Ini: ${b.stok.toInt()} ${b.satuan}");
-    }
-    print("-" * 50);
-
-    stdout.write("Pilih ID Barang [1-${listBarang.length}] (ketik 0 untuk batal): ");
-    String? inputId = stdin.readLineSync()?.trim();
-
-    if (inputId == '0' || inputId?.toLowerCase() == 'k' || inputId?.toLowerCase() == 'batal') {
-      print("[i] Analisis stok dibatalkan.");
-      return;
-    }
-
-    int? id = int.tryParse(inputId ?? "");
-    final barang = id != null ? _database.cariBerdasarkanId(id) : null;
-    if (barang == null) {
-      print("[!] Barang tidak ditemukan!");
-      return;
-    }
-
-    int stokBulat = barang.stok.toInt();
-    bool adalahGenap = stokBulat % 2 == 0;
-
-    print("\n[✓] HASIL ANALISIS GANJIL/GENAP BARANG GUDANG:");
-    print("Nama Barang   : ${barang.nama}");
-    print("Jumlah Stok   : $stokBulat ${barang.satuan}");
-    print("Sifat Angka   : ${adalahGenap ? 'GENAP' : 'GANJIL'}");
-    print("Logika Rumus  : $stokBulat % 2 = ${stokBulat % 2}");
-    print("------------------------------------------------------------");
-    print("ANALISIS OPERASIONAL GUDANG:");
-    if (adalahGenap) {
-      print("• Stok barang berjumlah GENAP ($stokBulat).");
-      print("• Barang ini siap ditata secara simetris berpasangan di rak display.");
-      print("• Dapat langsung dibuat bundling 2-in-1 tanpa menyisakan item tercecer.");
-    } else {
-      print("• Stok barang berjumlah GANJIL ($stokBulat).");
-      print("• Jika dikemas dalam paket bundle berpasangan, akan ada 1 ${barang.satuan} sisa.");
-      print("• Rekomendasi: Disarankan menambah restock 1 ${barang.satuan} agar genap (${stokBulat + 1}),");
-      print("  atau jual 1 ${barang.satuan} sebagai barang sample/display terpisah.");
-    }
-
-    stdout.write("\nTekan [ENTER] untuk melanjutkan...");
-    stdin.readLineSync();
-  }
-
-  /// Fitur Standar: Input bilangan bulat bebas
-  void _cekBilanganBebas() {
-    print("\n--- INPUT BILANGAN BEBAS ---");
-    stdout.write("Masukkan sebuah bilangan bulat (ketik 'k' untuk batal): ");
-    String? input = stdin.readLineSync()?.trim();
-
-    if (input?.toLowerCase() == 'k' || input?.toLowerCase() == 'batal') {
-      print("[i] Pemeriksaan bilangan dibatalkan.");
-      return;
-    }
-
-    int? angka = int.tryParse(input ?? "");
-
-    if (angka == null) {
-      print("[!] Input harus berupa bilangan bulat integer!");
-      return;
-    }
-
-    bool adalahGenap = angka % 2 == 0;
-    String statusTanda;
-    if (angka > 0) {
-      statusTanda = "Positif (+)";
-    } else if (angka < 0) {
-      statusTanda = "Negatif (-)";
-    } else {
-      statusTanda = "Nol (0)";
-    }
-
-    print("\n[✓] HASIL PEMERIKSAAN BILANGAN:");
-    print("Angka Input   : $angka");
-    print("Jenis Bilangan: ${adalahGenap ? 'GENAP' : 'GANJIL'}");
-    print("Tanda Bilangan: $statusTanda");
-    print("Penjelasan    : $angka ${adalahGenap ? 'habis dibagi 2 (sisa = 0)' : 'tidak habis dibagi 2 (sisa = ${angka.abs() % 2})'}.");
-
-    stdout.write("\nTekan [ENTER] untuk melanjutkan...");
-    stdin.readLineSync();
   }
 }

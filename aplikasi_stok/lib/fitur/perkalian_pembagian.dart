@@ -9,14 +9,13 @@ class MenuPerkalianPembagian {
 
     while (!kembali) {
       print("\n${"=" * 60}");
-      print(" MENU PERKALIAN DAN PEMBAGIAN ANGKA");
+      print(" MENU PERKALIAN DAN PEMBAGIAN ANGKA (OPERASIONAL GUDANG)");
       print("=" * 60);
       print("1. Hitung Total Kardus/Box (Perkalian ×)");
       print("2. Distribusi Stok ke Rak Gudang (Pembagian ÷ & Modulo %)");
-      print("3. Kalkulator Bebas Dua Angka (Perkalian & Pembagian)");
       print("0. Kembali ke Menu Utama");
       print("=" * 60);
-      stdout.write("Pilih opsi [0-3]: ");
+      stdout.write("Pilih opsi [0-2]: ");
       String? opsi = stdin.readLineSync()?.trim();
 
       switch (opsi) {
@@ -26,9 +25,6 @@ class MenuPerkalianPembagian {
         case '2':
           _hitungPembagianRak();
           break;
-        case '3':
-          _kalkulatorBebas();
-          break;
         case '0':
         case 'k':
         case 'kembali':
@@ -36,7 +32,7 @@ class MenuPerkalianPembagian {
           print("\n[i] Kembali ke Menu Utama.");
           break;
         default:
-          print("\n[!] Pilihan tidak valid! Silakan pilih 0-3.");
+          print("\n[!] Pilihan tidak valid! Silakan pilih 0-2.");
       }
     }
   }
@@ -106,44 +102,6 @@ class MenuPerkalianPembagian {
     print("Kapasitas per Rak : $perRak unit per rak (merata)");
     print("Sisa Stok (Modulo): $sisa unit (belum tertampung di rak)");
     print("Nilai Rata-rata   : ${presisi.toStringAsFixed(2)} unit/rak");
-
-    stdout.write("\nTekan [ENTER] untuk melanjutkan...");
-    stdin.readLineSync();
-  }
-
-  void _kalkulatorBebas() {
-    print("\n--- KALKULATOR PERKALIAN & PEMBAGIAN BEBAS ---");
-    stdout.write("Masukkan Angka Pertama (ketik 'k' untuk batal): ");
-    String? inputA = stdin.readLineSync()?.trim();
-    if (inputA?.toLowerCase() == 'k' || inputA?.toLowerCase() == 'batal') {
-      print("[i] Kalkulator dibatalkan.");
-      return;
-    }
-    double? a = double.tryParse(inputA ?? "");
-
-    stdout.write("Masukkan Angka Kedua (ketik 'k' untuk batal): ");
-    String? inputB = stdin.readLineSync()?.trim();
-    if (inputB?.toLowerCase() == 'k' || inputB?.toLowerCase() == 'batal') {
-      print("[i] Kalkulator dibatalkan.");
-      return;
-    }
-    double? b = double.tryParse(inputB ?? "");
-
-    if (a == null || b == null) {
-      print("[!] Masukkan angka yang valid!");
-      return;
-    }
-
-    double hasilKali = a * b;
-    print("\n[✓] HASIL:");
-    print("Perkalian ($a × $b) = $hasilKali");
-
-    if (b == 0) {
-      print("Pembagian ($a ÷ $b) = Tidak terdefinisi (pembagi tidak boleh nol)");
-    } else {
-      double hasilBagi = a / b;
-      print("Pembagian ($a ÷ $b) = ${hasilBagi.toStringAsFixed(4)}");
-    }
 
     stdout.write("\nTekan [ENTER] untuk melanjutkan...");
     stdin.readLineSync();

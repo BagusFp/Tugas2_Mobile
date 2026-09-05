@@ -54,14 +54,12 @@ dart run bin/main.dart
 2. **Data Kelompok**: Menampilkan data anggota kelompok mahasiswa pengembang (Nama & NIM).
 3. **Menu Penjumlahan dan Pengurangan Angka (Database Lokal)**:
    - Menampilkan daftar stok barang gudang secara realtime dari database lokal `data/data_stok.json`.
-   - Menambah stok masuk (penjumlahan `+`) atau mengurangi stok keluar (pengurangan `-`).
-   - Menyediakan kalkulator bebas untuk operasi penjumlahan/pengurangan 2 angka.
+   - Mengupdate stok barang secara realtime: menambah stok masuk (penjumlahan `+`) atau mengurangi stok keluar (pengurangan `-`).
 4. **Menu Perkalian dan Pembagian Angka**:
-   - Perkalian kardus/box $\times$ isi per box.
-   - Pembagian stok ke rak gudang beserta sisa barang menggunakan operator modulo (`%`).
+   - **Perkalian**: Menghitung total unit barang dari kardus/box $\times$ isi per box.
+   - **Pembagian & Modulo**: Menghitung distribusi stok merata ke rak gudang beserta sisa barang menggunakan operator modulo (`%`).
 5. **Menu Input Bilangan = Ganjil / Genap**:
-   - **Cek Stok Barang Gudang**: Memilih barang gudang, mendeteksi apakah stok bernilai ganjil/genap, dan memberikan rekomendasi logistik penataan display/packing.
-   - **Input Bilangan Bebas**: Memeriksa bilangan bulat sembarang apakah ganjil/genap dan positif/negatif.
+   - **Cek Stok Barang Gudang**: Memilih barang gudang, menganalisis apakah kuantitas stok bernilai ganjil atau genap, serta memberikan rekomendasi logistik nyata (simetri display rak & efisiensi bundling 2-in-1).
 6. **Menu Jumlah Total Angka dalam Suatu Field Input Data**:
    - Membaca satu baris (*field*) input berisi deretan angka (dipisahkan koma atau spasi).
    - Menghitung **Jumlah Total Angka**, Nilai Rata-rata, Nilai Tertinggi (Maks), Nilai Terendah (Min), dan Akumulasi Digit.
