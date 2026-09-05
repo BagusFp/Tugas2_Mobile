@@ -1,0 +1,12 @@
+name: aplikasi_stok
+description: "Aplikasi Manajemen Stok dan Perhitungan Matematika Berbasis Console (OOP Dart)"
+version: 1.0.0
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  # Program ini adalah murni Dart Console (CLI) tanpa ketergantungan Flutter UI
+
+dev_dependencies:
+  lints: ^3.0.0

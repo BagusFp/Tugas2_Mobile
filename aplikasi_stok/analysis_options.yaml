@@ -1,0 +1,6 @@
+# Analisis kode Dart murni
+include: package:lints/recommended.yaml
+
+linter:
+  rules:
+    avoid_print: false # Diizinkan karena ini aplikasi terminal / console

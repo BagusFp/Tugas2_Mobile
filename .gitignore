@@ -1,0 +1,27 @@
+# Backup & archives
+aplikasi_stok_flutter_backup/
+*.zip
+
+# Dart & Flutter build / cache artifacts
+.dart_tool/
+.packages
+build/
+.pub-cache/
+.pub/
+
+# Android build & local configuration
+**/android/.gradle/
+**/android/local.properties
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/GeneratedPluginRegistrant.java
+
+# IDE & Editor files
+.idea/
+*.iml
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
