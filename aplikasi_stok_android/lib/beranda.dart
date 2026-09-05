@@ -4,6 +4,7 @@ import 'penjumlahan_pengurangan.dart';
 import 'perkalian_pembagian.dart';
 import 'ganjil_genap.dart';
 import 'total_angka.dart';
+import 'input_barang.dart';
 import 'main.dart';
 
 /// Halaman Menu Utama / Dashboard Aplikasi
@@ -128,6 +129,17 @@ class HalamanBeranda extends StatelessWidget {
             ikon: Icons.functions,
             warnaIkon: Colors.teal,
             tujuan: const HalamanTotalAngka(),
+          ),
+
+          // Menu 6: Input Barang Baru (Database Gudang)
+          _menuItem(
+            context: context,
+            nomor: "6",
+            judul: "Input Barang Baru (Database Gudang)",
+            deskripsi: "Daftarkan jenis barang baru ke database gudang",
+            ikon: Icons.add_box_outlined,
+            warnaIkon: Colors.red,
+            tujuan: const HalamanInputBarang(),
           ),
         ],
       ),
