@@ -55,6 +55,8 @@ void main() {
       case '1':
         // Kriteria 2: Data kelompok
         menuKelompok.tampilkan();
+        stdout.write("\nTekan [ENTER] untuk kembali ke Menu Utama...");
+        stdin.readLineSync();
         break;
       case '2':
         // Kriteria 3: Menu penjumlahan dan pengurangan angka (Database Lokal)
@@ -83,11 +85,8 @@ void main() {
         break;
       default:
         print("\n[!] Pilihan tidak dikenali! Silakan pilih angka 0 sampai 6.");
-    }
-
-    if (programBerjalan) {
-      stdout.write("\nTekan [ENTER] untuk kembali ke Menu Utama...");
-      stdin.readLineSync();
+        stdout.write("\nTekan [ENTER] untuk melanjutkan...");
+        stdin.readLineSync();
     }
   }
 }

@@ -11,20 +11,35 @@ class MenuGanjilGenap {
 
   /// Menjalankan menu ganjil/genap
   void jalankan() {
-    print("\n${"=" * 60}");
-    print(" MENU INPUT BILANGAN: GANJIL / GENAP");
-    print("=" * 60);
-    print("1. Cek Sifat Stok Barang di Gudang (Analisis Logistik)");
-    print("2. Input Bilangan Bebas (Pemeriksaan Ganjil/Genap)");
-    stdout.write("\nPilih opsi [1-2]: ");
-    String? opsi = stdin.readLineSync()?.trim();
+    bool kembali = false;
 
-    if (opsi == '1') {
-      _cekStokBarangGudang();
-    } else if (opsi == '2') {
-      _cekBilanganBebas();
-    } else {
-      print("[!] Opsi tidak valid!");
+    while (!kembali) {
+      print("\n${"=" * 60}");
+      print(" MENU INPUT BILANGAN: GANJIL / GENAP");
+      print("=" * 60);
+      print("1. Cek Sifat Stok Barang di Gudang (Analisis Logistik)");
+      print("2. Input Bilangan Bebas (Pemeriksaan Ganjil/Genap)");
+      print("0. Kembali ke Menu Utama");
+      print("=" * 60);
+      stdout.write("Pilih opsi [0-2]: ");
+      String? opsi = stdin.readLineSync()?.trim();
+
+      switch (opsi) {
+        case '1':
+          _cekStokBarangGudang();
+          break;
+        case '2':
+          _cekBilanganBebas();
+          break;
+        case '0':
+        case 'k':
+        case 'kembali':
+          kembali = true;
+          print("\n[i] Kembali ke Menu Utama.");
+          break;
+        default:
+          print("\n[!] Opsi tidak valid! Silakan pilih 0, 1, atau 2.");
+      }
     }
   }
 
@@ -38,9 +53,15 @@ class MenuGanjilGenap {
     }
     print("-" * 50);
 
-    stdout.write("Pilih ID Barang [1-${listBarang.length}]: ");
-    int? id = int.tryParse(stdin.readLineSync()?.trim() ?? "");
+    stdout.write("Pilih ID Barang [1-${listBarang.length}] (ketik 0 untuk batal): ");
+    String? inputId = stdin.readLineSync()?.trim();
 
+    if (inputId == '0' || inputId?.toLowerCase() == 'k' || inputId?.toLowerCase() == 'batal') {
+      print("[i] Analisis stok dibatalkan.");
+      return;
+    }
+
+    int? id = int.tryParse(inputId ?? "");
     final barang = id != null ? _database.cariBerdasarkanId(id) : null;
     if (barang == null) {
       print("[!] Barang tidak ditemukan!");
@@ -67,13 +88,23 @@ class MenuGanjilGenap {
       print("• Rekomendasi: Disarankan menambah restock 1 ${barang.satuan} agar genap (${stokBulat + 1}),");
       print("  atau jual 1 ${barang.satuan} sebagai barang sample/display terpisah.");
     }
+
+    stdout.write("\nTekan [ENTER] untuk melanjutkan...");
+    stdin.readLineSync();
   }
 
   /// Fitur Standar: Input bilangan bulat bebas
   void _cekBilanganBebas() {
     print("\n--- INPUT BILANGAN BEBAS ---");
-    stdout.write("Masukkan sebuah bilangan bulat: ");
-    int? angka = int.tryParse(stdin.readLineSync()?.trim() ?? "");
+    stdout.write("Masukkan sebuah bilangan bulat (ketik 'k' untuk batal): ");
+    String? input = stdin.readLineSync()?.trim();
+
+    if (input?.toLowerCase() == 'k' || input?.toLowerCase() == 'batal') {
+      print("[i] Pemeriksaan bilangan dibatalkan.");
+      return;
+    }
+
+    int? angka = int.tryParse(input ?? "");
 
     if (angka == null) {
       print("[!] Input harus berupa bilangan bulat integer!");
@@ -95,5 +126,8 @@ class MenuGanjilGenap {
     print("Jenis Bilangan: ${adalahGenap ? 'GENAP' : 'GANJIL'}");
     print("Tanda Bilangan: $statusTanda");
     print("Penjelasan    : $angka ${adalahGenap ? 'habis dibagi 2 (sisa = 0)' : 'tidak habis dibagi 2 (sisa = ${angka.abs() % 2})'}.");
+
+    stdout.write("\nTekan [ENTER] untuk melanjutkan...");
+    stdin.readLineSync();
   }
 }

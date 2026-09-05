@@ -8,15 +8,24 @@ class MenuTotalAngka {
     print("\n${"=" * 60}");
     print(" MENU JUMLAH TOTAL ANGKA DALAM SUATU FIELD INPUT DATA");
     print("=" * 60);
-    print("Petunjuk: Masukkan beberapa angka sekaligus dalam SATU FIELD input.");
-    print("Pemisah antar angka dapat berupa koma (,) atau spasi.");
-    print("Contoh input: 15, 30, 45, 20, 10\n");
+    print("Petunjuk     : Masukkan beberapa angka sekaligus dalam SATU FIELD input.");
+    print("Pemisah      : Pemisah dapat berupa koma (,) atau spasi.");
+    print("Contoh input : 15, 30, 45, 20, 10");
+    print("Navigasi     : Ketik '0' atau 'k' untuk kembali ke Menu Utama\n");
 
     stdout.write("Field Input Data Angka: ");
     String input = stdin.readLineSync()?.trim() ?? "";
 
+    if (input == '0' ||
+        input.toLowerCase() == 'k' ||
+        input.toLowerCase() == 'kembali' ||
+        input.toLowerCase() == 'batal') {
+      print("\n[i] Kembali ke Menu Utama.");
+      return;
+    }
+
     if (input.isEmpty) {
-      print("[!] Field input data tidak boleh kosong!");
+      print("\n[i] Input kosong. Kembali ke Menu Utama.");
       return;
     }
 
@@ -25,6 +34,8 @@ class MenuTotalAngka {
 
     if (deretAngka.isEmpty) {
       print("[!] Tidak ditemukan format angka yang valid dalam field input tersebut!");
+      stdout.write("\nTekan [ENTER] untuk melanjutkan...");
+      stdin.readLineSync();
       return;
     }
 
@@ -50,6 +61,9 @@ class MenuTotalAngka {
     print("Nilai Terendah (Min)   : $nilaiMin");
     print("Total Akumulasi Digit  : $totalDigit");
     print("=" * 60);
+
+    stdout.write("\nTekan [ENTER] untuk kembali ke Menu Utama...");
+    stdin.readLineSync();
   }
 
   /// Mengekstrak potongan string menjadi List<double>

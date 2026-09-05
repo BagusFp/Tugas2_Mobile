@@ -28,5 +28,11 @@
     "nama": "Tepung Terigu Serbaguna 1kg",
     "stok": 8.0,
     "satuan": "kg"
+  },
+  {
+    "id": 6,
+    "nama": "Indomie",
+    "stok": 100.0,
+    "satuan": "pcs"
   }
 ]

@@ -28,8 +28,14 @@ class MenuLogin {
       print("Petunjuk Demo -> Username: 'admin' | Password: 'admin123'");
       print("Sisa kesempatan percobaan: $kesempatan\n");
 
-      stdout.write("Masukkan Username : ");
+      stdout.write("Masukkan Username (ketik '0' untuk keluar): ");
       String username = stdin.readLineSync()?.trim() ?? "";
+
+      if (username == '0' || username.toLowerCase() == 'keluar') {
+        print("\n[i] Proses login dibatalkan. Menutup aplikasi.");
+        return false;
+      }
+
       stdout.write("Masukkan Password : ");
       String password = stdin.readLineSync()?.trim() ?? "";
 
