@@ -1,72 +1,57 @@
-# Aplikasi Manajemen Gudang & Operasi Matematika (Dart Console OOP)
+# Aplikasi Manajemen Stok Gudang (Flutter Android UI)
 
-Aplikasi terminal berbasis **Dart Console (CLI)** murni dengan arsitektur **Object-Oriented Programming (OOP)**. Dirancang dengan prinsip **1 Class = 1 File** dan penamaan file yang persis mencerminkan butir-butir penugasan.
+Aplikasi mobile berbasis **Flutter UI** yang sangat sederhana, bersih, dan mudah dipahami. Dibuat untuk memenuhi kriteria penugasan **Tugas 2 - Pemrograman Mobile**.
 
 ---
 
-## 📂 Struktur Proyek (Sesuai Kriteria Tugas)
+## 📂 Struktur Folder Proyek
+
+Semua file dibuat sesederhana mungkin tanpa kode rumit:
 
 ```text
-aplikasi_stok/
-├── bin/
-│   └── main.dart                     # Entry point utama (Inisialisasi & Menu Utama)
-├── data/
-│   └── data_stok.json                # Database lokal penyimpanan stok barang gudang
-├── lib/
-│   ├── models/
-│   │   ├── user.dart                 # Class User (enkapsulasi username & private password)
-│   │   ├── anggota.dart              # Class AnggotaKelompok (data nama & NIM mahasiswa)
-│   │   └── barang.dart               # Class Barang (enkapsulasi stok & serialisasi JSON)
-│   └── fitur/
-│       ├── database_stok.dart        # Database lokal manajemen stok (read/write JSON)
-│       ├── login.dart                # Kriteria 1: Menu login (username dan password)
-│       ├── data_kelompok.dart        # Kriteria 2: Data kelompok
-│       ├── penjumlahan_pengurangan.dart # Kriteria 3: Menu penjumlahan dan pengurangan angka
-│       ├── perkalian_pembagian.dart  # Kriteria 4: Perkalian dan pembagian angka
-│       ├── ganjil_genap.dart         # Kriteria 5: Menu input bilangan = ganjil/genap
-│       ├── total_angka.dart          # Kriteria 6: Menu Jumlah total angka dalam suatu field input data
-│       └── input_barang.dart         # Fitur Terpisah: Menu input barang baru ke database gudang
-├── pubspec.yaml                      # Konfigurasi Dart murni
-└── README.md                         # Dokumentasi proyek
+lib/
+├── main.dart                   # Titik masuk aplikasi & Halaman Login (Kriteria 1)
+├── beranda.dart                # Halaman Menu Utama / Dashboard Tombol Fitur
+├── data_gudang.dart            # Data stok barang & data anggota kelompok
+├── data_kelompok.dart          # Halaman Data Kelompok Mahasiswa (Kriteria 2)
+├── penjumlahan_pengurangan.dart# Penjumlahan (+) & Pengurangan (-) Stok Gudang (Kriteria 3)
+├── perkalian_pembagian.dart    # Perkalian Box & Pembagian Rak Gudang (Kriteria 4)
+├── ganjil_genap.dart           # Cek Sifat Stok Ganjil / Genap (Kriteria 5)
+└── total_angka.dart            # Hitung Total Angka dalam 1 Field Input (Kriteria 6)
 ```
 
 ---
 
-## 🚀 Cara Menjalankan Program
+## 🚀 Cara Menjalankan di Android Studio
 
-Buka terminal di folder proyek:
+1. Buka **Android Studio**.
+2. Pilih menu **File** > **Open**, lalu arahkan ke folder:
+   `D:\Kuliah\Mobile\Tugas2\aplikasi_stok_android`
+3. Tunggu proses *syncing dependencies* selesai.
+4. Pilih target emulator atau perangkat fisik (Android / Chrome / Windows).
+5. Klik tombol tombol **Run** (segitiga hijau) atau tekan `Shift + F10`.
+
+Bisa juga dijalankan lewat terminal:
 ```bash
-cd d:\Kuliah\Mobile\Tugas2\aplikasi_stok_android
-dart run bin/main.dart
+cd D:\Kuliah\Mobile\Tugas2\aplikasi_stok_android
+flutter run
 ```
 
 ---
 
-## 🔑 Kredensial Login Demo
+## 🔑 Akun Login Demo
 - **Username**: `admin`
 - **Password**: `admin123`
 
 ---
 
-## ✨ Fitur-Fitur Utama
+## ✨ Fitur-Fitur Aplikasi
 
-1. **Menu Login**: Otentikasi username & password dengan proteksi batas percobaan.
-2. **Data Kelompok**: Menampilkan data anggota kelompok mahasiswa pengembang (Nama & NIM).
-3. **Menu Penjumlahan dan Pengurangan Angka (Database Lokal)**:
-   - Menampilkan daftar stok barang gudang secara realtime dari database lokal `data/data_stok.json`.
-   - Menambah stok masuk (penjumlahan `+`) atau mengurangi stok keluar (pengurangan `-`).
-   - Menyediakan kalkulator bebas untuk operasi penjumlahan/pengurangan 2 angka.
-4. **Menu Perkalian dan Pembagian Angka**:
+1. **Halaman Login**: Form login username & password dengan validasi sederhana.
+2. **Halaman Data Kelompok**: Menampilkan daftar nama dan NIM anggota kelompok.
+3. **Halaman Penjumlahan & Pengurangan**: Memilih barang gudang lalu menambah atau mengurangi kuantitas stoknya secara realtime.
+4. **Halaman Perkalian & Pembagian**:
    - Perkalian kardus/box $\times$ isi per box.
-   - Pembagian stok ke rak gudang beserta sisa barang menggunakan operator modulo (`%`).
-5. **Menu Input Bilangan = Ganjil / Genap**:
-   - **Cek Stok Barang Gudang**: Memilih barang gudang, mendeteksi apakah stok bernilai ganjil/genap, dan memberikan rekomendasi logistik penataan display/packing.
-   - **Input Bilangan Bebas**: Memeriksa bilangan bulat sembarang apakah ganjil/genap dan positif/negatif.
-6. **Menu Jumlah Total Angka dalam Suatu Field Input Data**:
-   - Membaca satu baris (*field*) input berisi deretan angka (dipisahkan koma atau spasi).
-   - Menghitung **Jumlah Total Angka**, Nilai Rata-rata, Nilai Tertinggi (Maks), Nilai Terendah (Min), dan Akumulasi Digit.
-7. **Menu Input Barang Baru (Database Lokal Terpisah)**:
-   - Mendaftarkan entri barang baru dengan penomoran ID otomatis.
-   - Melakukan validasi input nama barang, proteksi duplikasi, penentuan satuan barang (kg, pouch, botol, dll.), serta kuantitas stok awal.
-   - Menyimpan perubahan secara permanen ke file `data/data_stok.json`.
-
+   - Pembagian stok ke rak gudang beserta sisa barang menggunakan modulo (`%`).
+5. **Halaman Ganjil / Genap**: Memilih barang dan mendeteksi apakah stok berjumlah ganjil atau genap beserta rekomendasi logistiknya.
+6. **Halaman Total Angka**: Field input untuk deretan angka (dipisahkan koma atau spasi), menghitung Total, Rata-rata, Nilai Maks, dan Nilai Min.
