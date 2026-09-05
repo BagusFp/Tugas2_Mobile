@@ -24,7 +24,8 @@ aplikasi_stok/
 │       ├── penjumlahan_pengurangan.dart # Kriteria 3: Menu penjumlahan dan pengurangan angka
 │       ├── perkalian_pembagian.dart  # Kriteria 4: Perkalian dan pembagian angka
 │       ├── ganjil_genap.dart         # Kriteria 5: Menu input bilangan = ganjil/genap
-│       └── total_angka.dart          # Kriteria 6: Menu Jumlah total angka dalam suatu field input data
+│       ├── total_angka.dart          # Kriteria 6: Menu Jumlah total angka dalam suatu field input data
+│       └── input_barang.dart         # Fitur Terpisah: Menu input barang baru ke database gudang
 ├── pubspec.yaml                      # Konfigurasi Dart murni
 └── README.md                         # Dokumentasi proyek
 ```
@@ -64,3 +65,8 @@ dart run bin/main.dart
 6. **Menu Jumlah Total Angka dalam Suatu Field Input Data**:
    - Membaca satu baris (*field*) input berisi deretan angka (dipisahkan koma atau spasi).
    - Menghitung **Jumlah Total Angka**, Nilai Rata-rata, Nilai Tertinggi (Maks), Nilai Terendah (Min), dan Akumulasi Digit.
+7. **Menu Input Barang Baru (Database Lokal Terpisah)**:
+   - Mendaftarkan entri barang baru dengan penomoran ID otomatis.
+   - Melakukan validasi input nama barang, proteksi duplikasi, penentuan satuan barang (kg, pouch, botol, dll.), serta kuantitas stok awal.
+   - Menyimpan perubahan secara permanen ke file `data/data_stok.json`.
+

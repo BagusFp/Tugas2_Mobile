@@ -84,4 +84,45 @@ class DatabaseStok {
     barang.kurangStok(jumlah);
     simpanKeFile();
   }
+
+  /// Memeriksa apakah barang dengan nama tertentu sudah terdaftar (case-insensitive)
+  bool cekBarangAda(String nama) {
+    final namaDicari = nama.trim().toLowerCase();
+    return _daftarBarang.any((b) => b.nama.trim().toLowerCase() == namaDicari);
+  }
+
+  /// Menambahkan barang baru ke database gudang dan menyimpan otomatis ke file JSON
+  Barang tambahBarangBaru({
+    required String nama,
+    required double stokAwal,
+    required String satuan,
+  }) {
+    if (nama.trim().isEmpty) {
+      throw ArgumentError("Nama barang tidak boleh kosong.");
+    }
+    if (satuan.trim().isEmpty) {
+      throw ArgumentError("Satuan barang tidak boleh kosong.");
+    }
+    if (stokAwal < 0) {
+      throw ArgumentError("Stok awal barang tidak boleh bernilai negatif.");
+    }
+
+    // Auto-generate ID baru (ID tertinggi saat ini + 1)
+    int idBaru = 1;
+    if (_daftarBarang.isNotEmpty) {
+      idBaru = _daftarBarang.map((b) => b.id).reduce((a, b) => a > b ? a : b) + 1;
+    }
+
+    final barangBaru = Barang(
+      id: idBaru,
+      nama: nama.trim(),
+      stok: stokAwal,
+      satuan: satuan.trim(),
+    );
+
+    _daftarBarang.add(barangBaru);
+    simpanKeFile();
+    return barangBaru;
+  }
 }
+

@@ -7,6 +7,7 @@ import 'package:aplikasi_stok/fitur/penjumlahan_pengurangan.dart';
 import 'package:aplikasi_stok/fitur/perkalian_pembagian.dart';
 import 'package:aplikasi_stok/fitur/ganjil_genap.dart';
 import 'package:aplikasi_stok/fitur/total_angka.dart';
+import 'package:aplikasi_stok/fitur/input_barang.dart';
 
 /// Titik Masuk Utama (Entry Point) Aplikasi
 /// Mengintegrasikan seluruh modul fitur berorientasi objek (OOP)
@@ -19,6 +20,7 @@ void main() {
   final menuKalkulasi = MenuPerkalianPembagian();
   final menuGanjilGenap = MenuGanjilGenap(database);
   final menuTotalAngka = MenuTotalAngka();
+  final menuInputBarang = MenuInputBarang(database);
 
   print("\n${"=" * 60}");
   print(" APLIKASI MANAJEMEN GUDANG & OPERASI MATEMATIKA DART");
@@ -43,9 +45,10 @@ void main() {
     print("3. Menu Perkalian dan Pembagian Angka");
     print("4. Menu Input Bilangan = Ganjil / Genap");
     print("5. Menu Jumlah Total Angka dalam Suatu Field Input Data");
+    print("6. Menu Input Barang Baru (Database Gudang)");
     print("0. Logout & Keluar");
     print("=" * 60);
-    stdout.write("Pilih menu [0-5]: ");
+    stdout.write("Pilih menu [0-6]: ");
     String? pilihan = stdin.readLineSync()?.trim();
 
     switch (pilihan) {
@@ -69,13 +72,17 @@ void main() {
         // Kriteria 6: Menu Jumlah total angka dalam suatu field input data
         menuTotalAngka.jalankan();
         break;
+      case '6':
+        // Fitur Terpisah: Menu Input Barang Baru
+        menuInputBarang.jalankan();
+        break;
       case '0':
         programBerjalan = false;
         menuLogin.logout();
         print("\n[✓] Berhasil logout. Terima kasih telah menggunakan aplikasi!");
         break;
       default:
-        print("\n[!] Pilihan tidak dikenali! Silakan pilih angka 0 sampai 5.");
+        print("\n[!] Pilihan tidak dikenali! Silakan pilih angka 0 sampai 6.");
     }
 
     if (programBerjalan) {
